@@ -63,6 +63,14 @@ h1 {
     text-shadow: none;
 }
 
+/* Контейнер для кнопки и сообщения */
+#reset-container {
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение элементов */
+    align-items: center; /* Центровка элементов по горизонтали */
+    margin-top: 20px; /* Отступ сверху */
+}
+
 /* Кнопка сброса */
 #reset-btn {
     margin-top: 20px;
@@ -91,9 +99,7 @@ h1 {
     padding: 10px 20px;
     background-color: #f9f9f9; /* Светлый фон, как у клеток */
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: fit-content; /* Подстраиваем ширину под текст */
-    margin-left: auto; /* Центровка текста */
-    margin-right: auto; /* Центровка текста */
     display: block; /* Заставляем элемент занимать всю строку */
+    width: fit-content; /* Подстраиваем ширину под текст */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
