@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Крестики-нолики</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 36px;
+            font-weight: bold;
+            border: 1px solid #333;
+            cursor: pointer;
+        }
+
+        .cell.taken {
+            cursor: not-allowed;
+        }
+
+        #reset-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #winner {
+            margin-top: 20px;
+            font-size: 24px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Крестики-нолики</h1>
+    <div id="game-board">
+        <div class="cell" data-cell="0"></div>
+        <div class="cell" data-cell="1"></div>
+        <div class="cell" data-cell="2"></div>
+        <div class="cell" data-cell="3"></div>
+        <div class="cell" data-cell="4"></div>
+        <div class="cell" data-cell="5"></div>
+        <div class="cell" data-cell="6"></div>
+        <div class="cell" data-cell="7"></div>
+        <div class="cell" data-cell="8"></div>
+    </div>
+    <div id="winner"></div>
+    <button id="reset-btn">Сбросить игру</button>
+
+    <script>
+        const board = document.querySelectorAll('.cell');
+        const winnerDisplay = document.getElementById('winner');
+        const resetButton = document.getElementById('reset-btn');
+
+        let currentPlayer = 'X'; // Игрок начинает с "X"
+        let boardState = Array(9).fill(null); // Состояние игрового поля
+
+        // Возможные выигрышные комбинации
+        const winningCombinations = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+
+        function handleCellClick(e) {
+            const cell = e.target;
+            const cellIndex = cell.getAttribute('data-cell');
+
+            // Проверяем, занята ли ячейка
+            if (boardState[cellIndex] || winnerDisplay.textContent) return;
+
+            // Обновляем состояние ячейки
+            boardState[cellIndex] = currentPlayer;
+            cell.textContent = currentPlayer;
+            cell.classList.add('taken');
+
+            // Проверяем победителя
+            if (checkWinner()) {
+                winnerDisplay.textContent = `Победитель: ${currentPlayer}!`;
+                return;
+            }
+
+            // Проверяем на ничью
+            if (boardState.every(cell => cell)) {
+                winnerDisplay.textContent = 'Ничья!';
+                return;
+            }
+
+            // Меняем игрока
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        }
+
+        function checkWinner() {
+            return winningCombinations.some(combination => {
+                return combination.every(index => boardState[index] === currentPlayer);
+            });
+        }
+
+        function resetGame() {
+            boardState.fill(null);
+            board.forEach(cell => {
+                cell.textContent = '';
+                cell.classList.remove('taken');
+            });
+            winnerDisplay.textContent = '';
+            currentPlayer = 'X';
+        }
+
+        // Добавляем обработчики событий
+        board.forEach(cell => cell.addEventListener('click', handleCellClick));
+        resetButton.addEventListener('click', resetGame);
+    </script>
+</body>
+</html>
