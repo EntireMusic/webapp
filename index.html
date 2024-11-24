@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Крестики-нолики</title>
+    <title>Хрестики-Нулики</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,7 +54,7 @@
     </style>
 </head>
 <body>
-    <h1>Крестики-нолики</h1>
+    <h1>Хрестики-Нулики</h1>
     <div id="game-board">
         <div class="cell" data-cell="0"></div>
         <div class="cell" data-cell="1"></div>
@@ -67,14 +67,14 @@
         <div class="cell" data-cell="8"></div>
     </div>
     <div id="winner"></div>
-    <button id="reset-btn">Сбросить игру</button>
+    <button id="reset-btn">Почати знову</button>
 
     <script>
         const board = document.querySelectorAll('.cell');
         const winnerDisplay = document.getElementById('winner');
         const resetButton = document.getElementById('reset-btn');
 
-        let currentPlayer = 'X'; // Игрок начинает с "X"
+        let currentPlayer = '❌'; // Игрок начинает с "⭕️"
         let boardState = Array(9).fill(null); // Состояние игрового поля
 
         // Возможные выигрышные комбинации
@@ -103,18 +103,18 @@
 
             // Проверяем победителя
             if (checkWinner()) {
-                winnerDisplay.textContent = `Победитель: ${currentPlayer}!`;
+                winnerDisplay.textContent = `Переможець: ${currentPlayer}!`;
                 return;
             }
 
             // Проверяем на ничью
             if (boardState.every(cell => cell)) {
-                winnerDisplay.textContent = 'Ничья!';
+                winnerDisplay.textContent = 'Нічия!';
                 return;
             }
 
             // Меняем игрока
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            currentPlayer = currentPlayer === '❌' ? '⭕️' : '❌';
         }
 
         function checkWinner() {
@@ -130,7 +130,7 @@
                 cell.classList.remove('taken');
             });
             winnerDisplay.textContent = '';
-            currentPlayer = 'X';
+            currentPlayer = '❌';
         }
 
         // Добавляем обработчики событий
