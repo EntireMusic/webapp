@@ -4,7 +4,8 @@ body {
     text-align: center;
     margin: 20px;
     background: url('https://st3.depositphotos.com/2633985/14323/v/450/depositphotos_143238955-stock-illustration-notebook-pink-cell-background.jpg') repeat;
-    background-size: cover;
+    background-size: auto; /* Убираем растяжение */
+    background-position: top left; /* Начало цикла с верхнего левого угла */
 }
 
 /* Заголовок */
